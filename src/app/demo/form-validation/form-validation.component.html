@@ -1,0 +1,109 @@
+<div class="container">
+    <br>
+    <h1>Registration Form</h1>
+    <br>
+    <form [formGroup]="registrationForm" (ngSubmit)="submitted=true" class="row g-5 align-items-center">
+        <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" formControlName="firstName">
+            <ng-container *ngIf="registrationForm.controls['firstName'].hasError('required') && (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched); else invalidFirstName">
+                <p class="alert alert-danger">This field is required!</p>
+            </ng-container>
+            <ng-template #invalidFirstName>
+                <p *ngIf="registrationForm.controls['firstName'].errors!['nameError'] && registrationForm.controls['firstName'].dirty" class="alert alert-danger">Please eneter a valid first name</p>
+            </ng-template>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName">
+            <ng-container *ngIf="registrationForm.controls['lastName'].hasError('required') && (registrationForm.controls['lastName'].dirty || registrationForm.controls['lastName'].touched); else invalidLastName">
+                <p class="alert alert-danger">This field is required!</p>
+            </ng-container>
+            <ng-template #invalidLastName>
+                <p *ngIf="registrationForm.controls['lastName'].errors!['nameError'] && registrationForm.controls['lastName'].dirty" class="alert alert-danger">Please eneter a valid last name</p>
+            </ng-template>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select name="genders" id="'genders" class="form-control" formControlName="gender">
+                <option disabled selected value>----Please select an option----</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="n/a">Preferred Not to Say</option>
+            </select>
+            <p *ngIf="registrationForm.controls['gender'].invalid && (registrationForm.controls['gender'].dirty || registrationForm.controls['gender'].touched)" class="alert alert-danger">This field is reuqired!</p>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Birthday</label>
+            <input type="date" name="birthday" id="birthday" class="form-control" formControlName="birthday">
+            <p *ngIf="registrationForm.controls['birthday'].invalid && (registrationForm.controls['birthday'].dirty || registrationForm.controls['birthday'].touched)" class="alert alert-danger">This field is reuqired!</p>
+        </div>
+        <div class="form-group">
+            <fieldset formGroupName="address">
+                <label class="form-label">Street</label>
+                <input type="text" class="form-control" formControlName="street">
+                <p *ngIf="address.controls['street'].invalid && (address.controls['street'].dirty || address.controls['street'].touched)" class="alert alert-danger">This field is required!</p>
+
+                <label class="form-label">City</label>
+                <input type="text" class="form-control" formControlName="city">
+                <p *ngIf="address.controls['city'].invalid && (address.controls['city'].dirty || address.controls['city'].touched)" class="alert alert-danger">This field is required!</p>
+
+                <label class="form-label">State</label>
+                <input type="text" class="form-control" formControlName="state">
+                <p *ngIf="address.controls['state'].invalid && (address.controls['state'].dirty || address.controls['state'].touched)" class="alert alert-danger">This field is required!</p>
+
+                <label class="form-label">Country</label>
+                <input type="text" class="form-control" formControlName="country">
+                <p *ngIf="address.controls['country'].invalid && (address.controls['country'].dirty || address.controls['country'].touched)" class="alert alert-danger">This field is required!</p>
+
+                <label class="form-label">Postal Code</label>
+                <input type="text" class="form-control" formControlName="postal">
+                <ng-container *ngIf="address.controls['postal'].hasError('required') && (address.controls['postal'].dirty || address.controls['postal'].touched); else invalidPostal">
+                    <p class="alert alert-danger">This field is required!</p>
+                </ng-container> 
+                <ng-template #invalidPostal>
+                    <p *ngIf="address.controls['postal'].errors!['postalError'] && address.controls['postal'].dirty" class="alert alert-danger">Please enter a valid postal code</p>
+                </ng-template>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="text" name="email" id="email" class="form-control" formControlName="email">
+            <ng-container *ngIf="registrationForm.controls['email'].hasError('required') && (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched); else invalidEmail">
+                <p class="alert alert-danger">This field is required!</p>
+            </ng-container> 
+            <ng-template #invalidEmail>
+                <p *ngIf="registrationForm.controls['email'].errors!['emailError'] && registrationForm.controls['email'].dirty" class="alert alert-danger">Please enter a valid email address</p>
+            </ng-template>
+        </div>
+        <!-- <div class="form-group">
+            <label>Please upload your resume/CV here: </label>
+            <input type="file" id="file" name="file">
+            <button type="submit">Upload</button>
+        </div>
+        <div class="form-group">
+            <label>Please upload your profile picture here: </label>
+            <input type="file" id="picture" name="picture">
+            <button type="">Upload</button>
+        </div> -->
+        <div class="form-group mt-3">
+            <br>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <div [hidden]="!submitted">
+        <h3>User Details</h3>
+        <p>First Name: {{ registrationForm.get('firstName')!.value }}</p>
+        <p>Last Name: {{ registrationForm.get('lastName')!.value }}</p>
+        <p>Gender: {{ registrationForm.get('gender')!.value }}</p>
+        <p>Birthday: {{ registrationForm.get('birthday')!.value }}</p>
+        <p>Street: {{ registrationForm.get('address.street')!.value }}</p>
+        <p>City: {{ registrationForm.get('address.city')!.value }}</p>
+        <p>State: {{ registrationForm.get('address.state')!.value }}</p>
+        <p>Country: {{ registrationForm.get('address.country')!.value }}</p>
+        <p>Postal Code: {{ registrationForm.get('address.postal')!.value }}</p>
+        <p>Email: {{ registrationForm.get('email')!.value }}</p>
+    </div>
+</div>

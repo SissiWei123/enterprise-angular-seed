@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { MenubarModule, MenuItem } from 'primeng/primeng';
@@ -16,13 +17,15 @@ import { ROUTES } from './app.routes';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AppRoutingModule } from './app-routing.module';
+import { FormValidationComponent } from './demo/form-validation/form-validation.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, PageNotFoundComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, PageNotFoundComponent, FormValidationComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,7 +35,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     // Bootstrap4FrameworkModule,
     // JsonSchemaFormModule.forRoot(Bootstrap4FrameworkModule),
-    AppcommonModule
+    AppcommonModule,
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
